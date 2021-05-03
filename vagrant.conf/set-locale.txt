@@ -1,0 +1,6 @@
+
+# set locale
+if [ -f /etc/locale.conf ]; then
+    source /etc/locale.conf
+fi
+
