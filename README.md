@@ -11,6 +11,8 @@ Vagrant を使って Oracle MV VirtualBox に CentOS7 の検証環境を作る�
 
 * Oracle VM VirtualBox 6.1.22
 
+* Git for Windows v2.31.1
+
 * Vagrant 2.2.15
   * vagrant-disksize
 
@@ -36,9 +38,9 @@ C:\Users\hataya\vagrant-centos7>
 ```
 
 
-### 2) 必要に応じて Vagrantfile を修正してください。  
+### 2) ホストオンリーアダプターに割り当てられているネットワーク設定に合わせて修正をしてください。  
 
-`config.vm.network` で指定するIPアドレスをホストオンリーアダプターに割り当てられているネットワーク設定に合わせて変更する。  
+変更箇所1： `Vagrantfile` の `config.vm.network`  
 
 ```
 Vagrant.configure("2") do |config|
@@ -48,17 +50,27 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-そのほか、CPU、メモリ、ホスト名、VMが参照するDNSサーバーなどが変更可能です。
+### 3) 必要に応じて設定ファイルを修正をしてください。  
+
+仮想マシン名： `Vagrantfile` の `vb.name = "ubuntu-20.04-lxd"`  
+
+仮想マシンのCPUコア数： `Vagrantfile` の `vb.cpus = "2"`  
+
+仮想マシンのメモリ容量： `Vagrantfile` の `vb.memory = "1024"`  
+
+仮想マシンのホスト名： `Vagrantfile` の `config.vm.hostname = "ubuntu-lxd"`  
+
+仮想マシンが参照するDNSサーバー： `vagrant.sh.d/setup1-ubuntu.sh` の `{TASK1]`  
 
 
-### 3) vagrant up します。  
+### 4) vagrant up します。  
 
 ```
 C:\Users\hataya\vagrant-centos7> vagrant up
 ```
 
-
-### 4) 作成された仮想マシンが再起動されたら出来上がりです。  
+仮想マシンが作成され Vagrant によって Setup1～2 のセットアップスクリプトが実行されます。  
+セットアップが完了し再起動したら出来上がりです。  
 
 
 ### 5) ログインします。  
@@ -66,6 +78,9 @@ C:\Users\hataya\vagrant-centos7> vagrant up
 ```
 C:\Users\hataya\vagrant-centos7> vagrant ssh
 ```
+
+TeraTermなど普段利用しているターミナルソフトからログインする際は `vagrant ssh-config` コマンドで確認できる接続情報でログインできます。  
+
 
 
 ### 6) lxc コマンドでコンテナを作って遊んでください。  
