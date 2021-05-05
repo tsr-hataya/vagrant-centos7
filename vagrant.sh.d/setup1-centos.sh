@@ -37,8 +37,8 @@ echo "==> [TASK6] Set up some NTP servers."
 cp /etc/chrony.conf /etc/chrony.conf.`date '+%Y%m%d-%H%M%S'`
 sed -i 's|^server 0.centos.pool.ntp.org iburst|server ntp.nict.jp iburst|' /etc/chrony.conf
 sed -i 's|^server 1.centos.pool.ntp.org iburst|server ntp.jst.mfeed.ad.jp iburst|' /etc/chrony.conf
-sed -i '|^server 2.centos.pool.ntp.org|d' /etc/chrony.conf
-sed -i '|^server 3.centos.pool.ntp.org|d' /etc/chrony.conf
+sed -i '|^server 2.centos.pool.ntp.org iburst|d' /etc/chrony.conf
+sed -i '|^server 3.centos.pool.ntp.org iburst|d' /etc/chrony.conf
 echo ""
 
 # ----- [TASK7] -----
